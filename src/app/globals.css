@@ -1,8 +1,10 @@
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #ffffff; /* 기본 배경색 흰색 */
+  --foreground: #000000; /* 기본 텍스트 색 검정 */
 }
 
 @theme inline {
@@ -12,15 +14,24 @@
   --font-mono: var(--font-geist-mono);
 }
 
+/* 다크 모드일 때도 배경을 흰색으로 고정 */
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #ffffff; /* 다크 모드에서도 배경을 흰색으로 설정 */
+    --foreground: #000000; /* 다크 모드에서도 텍스트는 검정으로 */
   }
 }
 
+html,
 body {
-  background: var(--background);
-  color: var(--foreground);
+  background-color: #ffffff; /* 항상 흰 배경 */
+  color: var(--foreground); /* 텍스트 색은 검정 */
   font-family: Arial, Helvetica, sans-serif;
+}
+
+.container-custom {
+  @apply mx-auto bg-white;
+  width: 100%;
+  max-width: 900px;
+  min-width: 360px;
 }
