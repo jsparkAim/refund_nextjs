@@ -1,7 +1,8 @@
+import { Button } from "@/components/common/Button";
+import { useUserStore } from "@/store/userStore";
+import { VerificationInputProps } from "@/types/auth";
 import Image from "next/image";
 import { useState } from "react";
-import { VerificationInputProps } from "@/types/\bauth";
-import { Button } from "@/components/common/Button";
 
 export const VerificationInput: React.FC<VerificationInputProps> = ({
   phone,
@@ -39,10 +40,6 @@ export const VerificationInput: React.FC<VerificationInputProps> = ({
     }
   };
 
-  const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-    handleSendVerification(e);
-  };
-
   return (
     <>
       <div className="space-y-2">
@@ -60,12 +57,18 @@ export const VerificationInput: React.FC<VerificationInputProps> = ({
           inputMode="numeric"
           required
         />
-        <div className="flex items-center justify-end w-fit ml-auto gap-1 bg-white border border-gray-400 p-1.5 rounded-[5px]">
-          <Image src="/mail.png" alt="mail icon" width={14} height={14} />
+        <div className="flex items-center justify-end w-fit ml-auto gap-2 bg-white border border-gray-400 p-1.5 rounded-[5px]">
+          <Image
+            src="/assets/images/mail.png"
+            alt="mail icon"
+            width={16}
+            height={16}
+            className="align-middle"
+          />
           <Button
-            className="text-xs px-2 h-6 text-gray-600 bg-white"
-            variant="secondary"
-            onClick={handleClick}
+            className="text-xs px-2 h-6 flex items-center text-gray-800 bg-white"
+            variant="ghost"
+            onClick={handleSendVerification}
             disabled={isVerificationSent}>
             인증번호 전송
           </Button>

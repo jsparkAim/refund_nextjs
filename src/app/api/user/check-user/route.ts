@@ -11,7 +11,7 @@ export async function POST(): Promise<NextResponse<CheckUserResponse>> {
     name: "박정수",
     gender: "M",
     birth_date: "1990-01-01",
-    phone: "01046013390",
+    phone_number: "01046013390",
     CI: "1234567890123",
   };
 
@@ -20,7 +20,7 @@ export async function POST(): Promise<NextResponse<CheckUserResponse>> {
     name: "박정수",
     gender: "M",
     birth_date: "1990-01-01",
-    phone: "01046013390",
+    phone_number: "01046013390",
     CI: "1234567890123",
   };
 

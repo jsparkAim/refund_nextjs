@@ -1,20 +1,19 @@
 export const checkUser = async ({
-  phone,
-  name,
+  phoneNumber,
+  password,
 }: {
-  phone: string;
-  name: string;
+  phoneNumber: string;
+  password: string;
 }) => {
   const response = await fetch("/api/user/check-user", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ phone, name }),
+    body: JSON.stringify({ phoneNumber, password }),
   });
 
   const data = await response.json();
-  console.log("response.json >> ", data);
 
   if (!response.ok) {
     throw new Error("Failed to check user");

@@ -11,6 +11,7 @@ export async function middleware(request: NextRequest) {
     "/signup",
     "/",
     "/login/existUser",
+    "/login/termsAgreement",
   ];
 
   const token = await getToken({

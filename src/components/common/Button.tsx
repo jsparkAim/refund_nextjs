@@ -7,7 +7,7 @@ type ButtonProps = {
   children: React.ReactNode;
   onClick?: () => void;
   type?: "button" | "submit" | "reset";
-  variant?: "primary" | "secondary" | "danger";
+  variant?: "primary" | "secondary" | "danger" | "ghost";
   disabled?: boolean;
   className?: string;
   style?: React.CSSProperties;
@@ -29,6 +29,7 @@ export const Button: React.FC<ButtonProps> = ({
     primary: "bg-[var(--color-main)] text-white hover:bg-[var(--color-sub1)]",
     secondary: "bg-[var(--color-sub2)] text-white hover:bg-[var(--color-sub3)]",
     danger: "bg-red-600 text-white hover:bg-red-700",
+    ghost: "hover:bg-accent hover:text-accent-foreground",
   };
 
   const disabledStyle = "opacity-50 cursor-not-allowed";

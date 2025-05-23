@@ -10,17 +10,17 @@ import {
 } from "@/constants/LoginModalMessages";
 import { useRouter } from "next/navigation";
 import { useCompanyStore } from "@/store/useCompanyStore";
-
 import { useMutation } from "@tanstack/react-query";
 import { checkUser } from "@/lib/api/user";
 import { User } from "next-auth";
 import { useUserStore } from "@/store/userStore";
+
 export default function LoginForm() {
   const router = useRouter();
   const companyInfo = useCompanyStore((state) => state.company);
   const { setUser } = useUserStore((state) => state);
-  const [phone, setPhone] = useState("");
-  const [name, setName] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [password, setPassword] = useState("");
   const [isValid, setIsValid] = useState(false);
   const [showFirstVisitModal, setShowFirstVisitModal] = useState(false);
   const [showUseRestrictionsModal, setShowUseRestrictionsModal] =
@@ -29,14 +29,16 @@ export default function LoginForm() {
   const { mutate: checkUserMutate } = useMutation<
     { status: string; user: User },
     Error,
-    { phone: string; name: string }
+    { phoneNumber: string; password: string }
   >({
     mutationFn: checkUser,
     onSuccess: (data: { status: string; user: User }) => {
+      console.log("checkUserMutate data >> ", data);
       switch (data.status) {
         case "EXISTING":
+          console.log("data.user >> ", data.user);
           setUser(data.user); // 유저 정보 저장
-          router.push("/login/identityVerification");
+          router.push("/login/existUser");
           break;
 
         case "NEW":
@@ -54,25 +56,25 @@ export default function LoginForm() {
     },
   });
 
-  const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handlePhoneNumberChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value.replace(/[^0-9]/g, "");
-    setPhone(value);
+    setPhoneNumber(value);
   };
 
-  const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
-    setName(value);
+    setPassword(value);
   };
 
   useEffect(() => {
-    const isPhoneValid = phone.length === 11;
-    const isNameValid = name.trim().length > 0;
-    setIsValid(isPhoneValid && isNameValid);
-  }, [phone, name]);
+    const isPhoneNumberValid = phoneNumber.length === 11;
+    const isPasswordValid = password.trim().length > 0;
+    setIsValid(isPhoneNumberValid && isPasswordValid);
+  }, [phoneNumber, password]);
 
   const handleCheck = async () => {
     if (!isValid) return;
-    await checkUserMutate({ phone, name });
+    await checkUserMutate({ phoneNumber, password });
   };
 
   return (
@@ -89,23 +91,23 @@ export default function LoginForm() {
             환급 프로그램을 이용하시려면
           </p>
           <p className="text-[16px] font-bold leading-[24px] text-gray-800">
-            이름과 휴대폰번호를 입력해 주세요.
+            ID와 패스워드를 입력해 주세요.
           </p>
         </div>
 
         <form className="space-y-4">
           <div className="space-y-2">
             <label
-              htmlFor="name"
+              htmlFor="phoneNumber"
               className="text-[14px] font-normal leading-[18px] text-gray-600">
-              이름
+              ID
             </label>
             <input
-              id="name"
+              id="phoneNumber"
               type="text"
-              value={name}
-              onChange={handleNameChange}
-              placeholder="이름을 입력해주세요"
+              value={phoneNumber}
+              onChange={handlePhoneNumberChange}
+              placeholder="휴대폰번호를 입력해주세요"
               className={`w-full px-4 h-[45px] border border-gray-400 rounded-[5px] focus:outline-none focus:ring-2`}
               pattern="[0-9]*"
               required
@@ -113,18 +115,17 @@ export default function LoginForm() {
           </div>
           <div className="space-y-2">
             <label
-              htmlFor="phone"
+              htmlFor="password"
               className="text-[14px] font-normal leading-[18px] text-gray-600">
-              휴대폰번호
+              패스워드
             </label>
             <input
-              id="phone"
-              type="tel"
-              value={phone}
-              onChange={handlePhoneChange}
-              placeholder="-없이 숫자만 입력해주세요"
+              id="password"
+              type="password"
+              value={password}
+              onChange={handlePasswordChange}
+              placeholder="패스워드를 입력해주세요"
               className={`w-full px-4 h-[45px] border border-gray-400 rounded-[5px] focus:outline-none focus:ring-2`}
-              pattern="[0-9]*"
               required
             />
           </div>
@@ -139,22 +140,22 @@ export default function LoginForm() {
               휴대폰번호 변경시 재등록
             </Link>
           </div> */}
-
-          <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 w-[78vw] max-w-[400px]">
-            <Button
-              type="button"
-              disabled={!isValid}
-              onClick={handleCheck}
-              style={{
-                backgroundColor: isValid
-                  ? companyInfo?.companyMainColor
-                  : "#9CA3AF",
-              }}
-              className="w-full h-[6vh] flex items-center justify-center text-white hover:opacity-90 text-base">
-              확인
-            </Button>
-          </div>
         </form>
+
+        <div className="w-full mt-32">
+          <Button
+            type="button"
+            disabled={!isValid}
+            onClick={handleCheck}
+            style={{
+              backgroundColor: isValid
+                ? companyInfo?.companyMainColor
+                : "#9CA3AF",
+            }}
+            className="w-full h-[6vh] flex items-center justify-center text-white hover:opacity-90 text-base">
+            확인
+          </Button>
+        </div>
 
         <CheckCancelModal
           isOpen={showFirstVisitModal}

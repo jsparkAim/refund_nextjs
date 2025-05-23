@@ -17,7 +17,7 @@ export default function IdentityVerification() {
   return (
     <>
       <LoginLayout>
-        <div className="w-[310px] flex flex-col gap-4">
+        <div className="w-full flex flex-col gap-4">
           <div className="space-y-1">
             <p className="text-[18px] font-bold leading-[24px] text-gray-800">
               본인확인
@@ -42,7 +42,7 @@ export default function IdentityVerification() {
                 router.push("/login/identityVerification/detailVerification")
               }>
               <Image
-                src="/goto_pass.png"
+                src="/assets/images/goto_pass.png"
                 alt="person icon"
                 width={400}
                 height={400}
