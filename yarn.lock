@@ -1071,6 +1071,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@portone/browser-sdk@npm:^0.0.20":
+  version: 0.0.20
+  resolution: "@portone/browser-sdk@npm:0.0.20"
+  checksum: 10c0/fa0b797b5833e04b07b852eba9aa27a9b14580bef6126e9778b9f8717df82531c31e9b841e837b97357285fa6adeeb74ceb1e704a14f82be35a62a18dba25834
+  languageName: node
+  linkType: hard
+
 "@prisma/client@npm:^6.8.2":
   version: 6.8.2
   resolution: "@prisma/client@npm:6.8.2"
@@ -2024,10 +2031,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/uuid@npm:^10.0.0":
-  version: 10.0.0
-  resolution: "@types/uuid@npm:10.0.0"
-  checksum: 10c0/9a1404bf287164481cb9b97f6bb638f78f955be57c40c6513b7655160beb29df6f84c915aaf4089a1559c216557dc4d2f79b48d978742d3ae10b937420ddac60
+"@types/uuid@npm:^9.0.0":
+  version: 9.0.8
+  resolution: "@types/uuid@npm:9.0.8"
+  checksum: 10c0/b411b93054cb1d4361919579ef3508a1f12bf15b5fdd97337d3d351bece6c921b52b6daeef89b62340fd73fd60da407878432a1af777f40648cbe53a01723489
   languageName: node
   linkType: hard
 
@@ -4816,6 +4823,7 @@ __metadata:
     "@aws-sdk/client-s3": "npm:^3.815.0"
     "@aws-sdk/s3-request-presigner": "npm:^3.815.0"
     "@eslint/eslintrc": "npm:^3"
+    "@portone/browser-sdk": "npm:^0.0.20"
     "@prisma/client": "npm:^6.8.2"
     "@tailwindcss/postcss": "npm:^4.1.7"
     "@tailwindcss/typography": "npm:^0.5.10"
@@ -4823,7 +4831,7 @@ __metadata:
     "@types/node": "npm:^20"
     "@types/react": "npm:^19"
     "@types/react-dom": "npm:^19"
-    "@types/uuid": "npm:^10.0.0"
+    "@types/uuid": "npm:^9.0.0"
     autoprefixer: "npm:^10.4.21"
     dayjs: "npm:^1.11.13"
     eslint: "npm:^9"

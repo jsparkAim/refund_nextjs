@@ -41,10 +41,6 @@ export default function LoginForm() {
           router.push("/login/existUser");
           break;
 
-        case "NEW":
-          setShowFirstVisitModal(true);
-          break;
-
         case "USE_RESTRICTIONS":
           setShowUseRestrictionsModal(true);
           break;
@@ -142,7 +138,21 @@ export default function LoginForm() {
           </div> */}
         </form>
 
-        <div className="w-full mt-32">
+        <div className="w-full">
+          <Button
+            type="button"
+            onClick={() => {
+              setShowFirstVisitModal(true);
+            }}
+            style={{
+              backgroundColor: "#9CA3AF",
+            }}
+            className="w-full h-[6vh] flex items-center justify-center text-white hover:opacity-90 text-base">
+            회원가입
+          </Button>
+        </div>
+
+        <div className="w-full mt-16">
           <Button
             type="button"
             disabled={!isValid}

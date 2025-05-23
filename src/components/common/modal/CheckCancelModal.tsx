@@ -50,7 +50,8 @@ export function CheckCancelModal({
         <div className="flex gap-4">
           <Button
             onClick={onConfirm}
-            className={` h-[53px] flex-1 text-white py-2 rounded-lg bg-${companyColor} hover:bg-${companyColor}`}>
+            style={companyColor ? { backgroundColor: companyColor } : undefined}
+            className="h-[53px] flex-1 text-white py-2 rounded-lg hover:opacity-90">
             {buttonText}
           </Button>
           {cancelText && (

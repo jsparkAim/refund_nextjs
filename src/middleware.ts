@@ -6,12 +6,13 @@ export async function middleware(request: NextRequest) {
 
   // 공개 경로
   const publicPath = [
-    "/login",
-    "/login/identityVerification",
-    "/signup",
     "/",
+    "/login",
+    "/signup",
     "/login/existUser",
     "/login/termsAgreement",
+    "/login/identityVerification",
+    "/login/identityVerification/detailVerification",
   ];
 
   const token = await getToken({
