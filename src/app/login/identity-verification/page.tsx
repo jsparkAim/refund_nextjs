@@ -5,13 +5,21 @@ import { LoginLayout } from "@/components/layout/LoginLayout";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { useState } from "react";
+import { useAuthStore } from "@/store/useAuthStore";
+
 export default function IdentityVerification() {
   const router = useRouter();
   const [showErrorMessage, setShowErrorMessage] = useState(false);
+  const { authMode } = useAuthStore((state) => state);
 
   const handleCheck = () => {
     // 첫 화면의 이름, 연락처가 같으면
     // sms 인증 문자 로직으로 이동
+
+    // authMode가 비밀번호 찾기일때 + 본인인증 성공일때(TODO : 패스 테스트할 수 있을때 구현예정)
+    if (authMode === "findPassword") {
+      router.push("/login/reset-password");
+    }
   };
 
   return (
@@ -39,7 +47,7 @@ export default function IdentityVerification() {
             <Button
               className="mt-10 w-[250px] h-[90px] flex flex-col items-center justify-center gap-2 bg-white "
               onClick={() =>
-                router.push("/login/identityVerification/detailVerification")
+                router.push("/login/identity-verification/detail-verification")
               }>
               <Image
                 src="/assets/images/goto_pass.png"

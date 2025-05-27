@@ -8,17 +8,6 @@ datasource db {
 }
 
 /// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
-model aim_example_test {
-  no      Int      @id @default(autoincrement())
-  col1    String?  @db.VarChar(100)
-  col2    String?  @db.VarChar(100)
-  regr_no BigInt
-  reg_dt  DateTime @db.DateTime(0)
-  modr_no BigInt
-  mod_dt  DateTime @db.DateTime(0)
-}
-
-/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 model sc_mbr {
   mbr_no                BigInt    @id @default(autoincrement())
   clco_no               BigInt
@@ -644,23 +633,53 @@ model sy_mngr_req_hist {
 }
 
 /// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
-model test_user {
-  user_no          Int               @id @default(autoincrement())
-  id               String            @unique(map: "id_UNIQUE") @db.VarChar(64)
-  pw               String            @db.VarChar(256)
-  salt_val         String?           @db.VarChar(128)
-  auth_token       String?           @db.VarChar(512)
-  kakao_user_token String?           @db.VarChar(512)
-  comp_code        String?           @db.VarChar(50)
-  name             String?           @db.VarChar(100)
-  phone_number     String?           @db.VarChar(100)
-  gender           test_user_gender? @default(U)
-  birth_date       DateTime?         @db.Date
-  created_at       DateTime?         @default(now()) @db.DateTime(0)
-  updated_at       DateTime?         @default(now()) @db.DateTime(0)
+model rf_appli {
+  rf_appli_no      Int      @id @default(autoincrement())
+  rf_mbr_no        Int
+  appli_route      String   @default("WEB") @db.VarChar(20)
+  appli_info_temp  String   @db.VarChar(256)
+  appli_info_temp2 String?  @db.VarChar(45)
+  etc1             String?  @db.VarChar(256)
+  etc2             String?  @db.VarChar(256)
+  regr_no          Int
+  reg_dt           DateTime @db.DateTime(0)
+  modr_no          Int
+  mod_dt           DateTime @db.DateTime(0)
 }
 
-enum test_user_gender {
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model rf_appli_doc {
+  rf_appli_doc_no  Int      @id @default(autoincrement())
+  rf_mbr_no        Int
+  rf_appli_no      Int
+  atch_gubun       String   @default("UNCLSIFI") @db.VarChar(20)
+  atch_file_mng_no BigInt
+  regr_no          Int
+  reg_dt           DateTime @db.DateTime(0)
+  modr_no          Int
+  mod_dt           DateTime @db.DateTime(0)
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model rf_mbr {
+  rf_mbr_no        Int            @id @default(autoincrement())
+  id               String         @unique(map: "id_UNIQUE") @db.VarChar(64)
+  pw               String         @db.VarChar(256)
+  mbr_stts_cd      String         @db.VarChar(20)
+  salt_val         String?        @db.VarChar(128)
+  auth_token       String?        @db.VarChar(512)
+  kakao_user_token String?        @db.VarChar(512)
+  name             String         @db.VarChar(100)
+  phone_number     String         @unique(map: "phone_number_UNIQUE") @db.VarChar(64)
+  gender           rf_mbr_gender? @default(U)
+  birth_date       DateTime?      @db.Date
+  regr_no          Int
+  reg_dt           DateTime       @default(now()) @db.DateTime(0)
+  modr_no          Int
+  mod_dt           DateTime       @default(now()) @db.DateTime(0)
+}
+
+enum rf_mbr_gender {
   M
   W
   U

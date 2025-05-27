@@ -9,10 +9,13 @@ export async function middleware(request: NextRequest) {
     "/",
     "/login",
     "/signup",
-    "/login/existUser",
-    "/login/termsAgreement",
-    "/login/identityVerification",
-    "/login/identityVerification/detailVerification",
+    "/login/exist-user",
+    "/login/terms-agreement",
+    "/login/identity-verification",
+    "/login/identity-verification/detail-verification",
+    "/login/find-password",
+    "/login/reset-password",
+    "/login/user-register",
   ];
 
   const token = await getToken({

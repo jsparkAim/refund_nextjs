@@ -1,38 +1,40 @@
-// import { NextRequest } from "next/server";
+import { CheckUserResponse, User, UserStatus } from "@/types/user";
+import { NextRequest, NextResponse } from "next/server";
+import { prisma } from "@/lib/prisma";
 
-import { CheckUserResponse, UserStatus } from "@/types/user";
-import { NextResponse } from "next/server";
+export async function POST(
+  request: NextRequest
+): Promise<NextResponse<CheckUserResponse>> {
+  const { phoneNumber, password } = await request.json();
 
-export async function POST(): Promise<NextResponse<CheckUserResponse>> {
-  // TODO : 추후 수정
+  const userByPhone = await prisma.rf_mbr.findUnique({
+    where: {
+      phone_number: phoneNumber,
+    },
+  });
 
-  // 기존 회원
-  const existUser = {
-    name: "박정수",
-    gender: "M",
-    birth_date: "1990-01-01",
-    phone_number: "01046013390",
-    CI: "1234567890123",
-  };
-
-  // 강제 탈퇴 회원
-  const restrictUser = {
-    name: "박정수",
-    gender: "M",
-    birth_date: "1990-01-01",
-    phone_number: "01046013390",
-    CI: "1234567890123",
-  };
-
-  let status: UserStatus;
-
-  if (existUser) {
-    status = UserStatus.EXISTING;
-  } else if (restrictUser) {
-    status = UserStatus.USE_RESTRICTIONS;
-  } else {
-    status = UserStatus.NEW;
+  if (!userByPhone) {
+    return NextResponse.json({ status: UserStatus.NOT_FOUND });
   }
 
-  return NextResponse.json({ status, user: existUser });
+  if (userByPhone.pw !== password) {
+    return NextResponse.json({ status: UserStatus.PASSWORD_MISMATCH });
+  }
+
+  if (userByPhone.mbr_stts_cd === "91") {
+    // 91 : 강제탈퇴회원
+    return NextResponse.json({ status: UserStatus.USER_RESTRICTIONS });
+  }
+
+  // 기존 회원
+  const user: User = {
+    id: userByPhone.id,
+    name: userByPhone.name,
+    gender: userByPhone.gender,
+    birth_date: userByPhone.birth_date,
+    phone_number: userByPhone.phone_number,
+    auth_token: userByPhone.auth_token,
+  };
+
+  return NextResponse.json({ status: UserStatus.EXISTING, user });
 }

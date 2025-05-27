@@ -4,7 +4,8 @@ export interface User {
   name: string | null;
   birth_date?: Date | null;
   gender?: string | null;
-  CI?: string | null;
+  pw?: string | null;
+  auth_token?: string | null;
 }
 
 export interface UserState {
@@ -17,7 +18,9 @@ export interface UserState {
 export enum UserStatus {
   EXISTING = "EXISTING",
   NEW = "NEW",
-  USE_RESTRICTIONS = "USE_RESTRICTIONS",
+  NOT_FOUND = "NOT_FOUND",
+  PASSWORD_MISMATCH = "PASSWORD_MISMATCH",
+  USER_RESTRICTIONS = "USER_RESTRICTIONS",
 }
 
 export type CheckUserResponse = {

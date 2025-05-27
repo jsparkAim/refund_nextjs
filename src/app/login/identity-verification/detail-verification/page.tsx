@@ -12,7 +12,7 @@ export default function DetailVerification() {
       identityVerificationId: `identity-verification-${crypto.randomUUID()}`,
       channelKey: "channel-key-6433fec4-f453-414f-85bc-ce3e9f9731cb",
       // redirectUrl: `${process.env.NEXT_PUBLIC_BASE_URL}/api/auth/identity-verifications`, // api 단에서 유저의 정보 확인
-      redirectUrl: `${process.env.NEXT_PUBLIC_BASE_URL}/login/identityVerification`,
+      redirectUrl: `${process.env.NEXT_PUBLIC_BASE_URL}/login/identity-verification`,
     });
   };
 

@@ -47,7 +47,7 @@ export default function TermsAgreement() {
     }
     setShowErrorMessage(false);
     //setChangePhoneState({ changePhoneState: false });
-    router.push("/login/identityVerification");
+    router.push("/login/identity-verification");
   };
 
   return (
